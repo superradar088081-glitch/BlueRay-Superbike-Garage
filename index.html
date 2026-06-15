@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="BlueRay Superbike Garage - โชว์รูมรถบิ๊กไบค์มือสองระดับพรีเมียม คัดเกรดพิเศษ ประวัติใส รับประกัน 3 เดือน ผ่อนสบาย อุบลราชธานี">
+    <title>BlueRay Superbike Garage | บิ๊กไบค์มือสองเกรดพรีเมียม ประวัติครบ พร้อมรับประกัน</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==========================================
+       DESIGN SYSTEM & RESET
+       ========================================== */
+        :root {
+            --color-bg: #0D0D0D;
+            --color-surface: #161616;
+            --color-surface-card: #1C1C1C;
+            --color-accent: #E05C00;
+            --color-accent-hover: #FF6E0B;
+            --color-accent-glow: rgba(224, 92, 0, 0.4);
+            --color-text: #F0EDE8;
+            --color-muted: #B0B8C1;
+            --color-border: #2A2A2A;
+            --color-line-green: #06C755;
+
+            --font-display: 'Oswald', sans-serif;
+            --font-body: 'Inter', 'Noto Sans Thai', sans-serif;
+            --transition-speed: 0.3s;
+            --transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-logo,
+        .btn-display {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Grid layout base */
+        .grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        /* ==========================================
+       SCROLL ANIMATIONS (IntersectionObserver)
+       ========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+            html {
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* ==========================================
+       HEADER & NAVIGATION
+       ========================================== */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background-color: rgba(13, 13, 13, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(42, 42, 42, 0.5);
+            transition: var(--transition);
+        }
+
+        .site-header.scrolled {
+            background-color: #0D0D0D;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .brand-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo span {
+            color: var(--color-accent);
+        }
+
+        .brand-logo svg {
+            fill: var(--color-accent);
+            width: 28px;
+            height: 28px;
+            filter: drop-shadow(0 0 5px var(--color-accent-glow));
+        }
+
+        /* Nav Links */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-muted);
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transition: var(--transition);
+            box-shadow: 0 0 8px var(--color-accent);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-text);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Header Buttons */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-nav-call {
+            display: none;
+            background-color: transparent;
+            border: 2px solid var(--color-accent);
+            color: var(--color-text);
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 20px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .btn-nav-call:hover {
+            background-color: var(--color-accent);
+            box-shadow: 0 0 15px var(--color-accent-glow);
+            transform: translateY(-1px);
+        }
+
+        /* Hamburger Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 30px;
+            height: 24px;
+            position: relative;
+            z-index: 101;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--color-text);
+            position: absolute;
+            left: 0;
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .menu-toggle span:nth-child(1) {
+            top: 0;
+        }
+
+        .menu-toggle span:nth-child(2) {
+            top: 10px;
+        }
+
+        .menu-toggle span:nth-child(3) {
+            top: 20px;
+        }
+
+        /* Hamburger Menu Active State */
+        .menu-toggle.open span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 10px;
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 10px;
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: #111;
+                flex-direction: column;
+                justify-content: center;
+                gap: 30px;
+                padding: 40px;
+                transition: right var(--transition-speed) ease-in-out;
+                border-left: 1px solid var(--color-border);
+                z-index: 99;
+            }
+
+            .nav-menu.open {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header-actions {
+                margin-right: 40px;
+            }
+
+            .btn-nav-call {
+                display: inline-block;
+                font-size: 0.9rem;
+                padding: 6px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-actions {
+                display: none;
+            }
+        }
+
+        /* ==========================================
+       HERO SECTION
+       ========================================== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            background-color: var(--color-bg);
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.1;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            color: var(--color-accent);
+            text-shadow: 0 0 20px rgba(224, 92, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--color-muted);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--color-accent);
+            color: var(--color-text);
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 14px 36px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px var(--color-accent-glow);
+            transition: var(--transition);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .hero-cta:hover {
+            background-color: var(--color-accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255, 110, 11, 0.6);
+        }
+
+        /* Trust Badge Row */
+        .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 50px;
+            color: var(--color-muted);
+            font-size: clamp(0.85rem, 1.5vw, 1rem);
+            font-weight: 500;
+            letter-spacing: 0.03em;
+        }
+
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-item svg {
+            color: var(--color-accent);
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Hero Background & Diagonal Split */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-bg-mobile {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(13, 13, 13, 0.85) 0%, rgba(13, 13, 13, 0.95) 100%), url('assets/hero.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.95;
+        }
+
+        .hero-bg-desktop {
+            display: none;
+        }
+
+        /* SVG Glowing Line Divider */
+        .hero-divider-svg-container {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .hero-bg-mobile {
+                display: none;
+            }
+
+            .hero-bg-desktop {
+                display: block;
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 50%;
+                height: 100%;
+                background-image: linear-gradient(to right, #0D0D0D 0%, rgba(13, 13, 13, 0.2) 100%), url('assets/hero.png');
+                background-size: cover;
+                background-position: center;
+                clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+                opacity: 0.85;
+                filter: contrast(1.15) brightness(0.85);
+            }
+
+            .hero-divider-svg-container {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            .hero-divider-svg {
+                width: 100%;
+                height: 100%;
+            }
+
+            .glow-line {
+                filter: drop-shadow(0 0 8px var(--color-accent));
+            }
+        }
+
+        /* ==========================================
+       SECTION STYLING COMMON
+       ========================================== */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 16px;
+        }
+
+        .section-title span {
+            color: var(--color-accent);
+        }
+
+        .section-subtitle {
+            font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+            color: var(--color-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================
+       WHY US SECTION
+       ========================================== */
+        .why-us {
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .why-us-grid {
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .why-us-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .why-card {
+            background: linear-gradient(145deg, #1C1C1C, #131313);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--color-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .why-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(224, 92, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(224, 92, 0, 0.1);
+        }
+
+        .why-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .why-icon-container {
+            background-color: rgba(224, 92, 0, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            border: 1px solid rgba(224, 92, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .why-card:hover .why-icon-container {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .why-icon-container svg {
+            width: 38px;
+            height: 38px;
+            stroke: var(--color-accent);
+            fill: none;
+            transition: var(--transition);
+        }
+
+        .why-card:hover .why-icon-container svg {
+            stroke: var(--color-text);
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.4));
+        }
+
+        .why-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 16px;
+        }
+
+        .why-desc {
+            font-size: 0.95rem;
+            color: var(--color-muted);
+            line-height: 1.6;
+        }
+
+        /* ==========================================
+       FEATURED INVENTORY SECTION
+       ========================================== */
+        .inventory {
+            background-color: var(--color-bg);
+        }
+
+        .inventory-grid {
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 576px) {
+            .inventory-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .inventory-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .bike-card {
+            background-color: var(--color-surface-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: var(--transition);
+        }
+
+        .bike-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px var(--color-accent-glow);
+        }
+
+        .bike-img-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background-color: #111;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .bike-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .bike-card:hover .bike-img {
+            transform: scale(1.08);
+        }
+
+        /* Carbon Grid / Mesh Placeholder */
+        .bike-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: #141414;
+            background-image:
+                radial-gradient(circle, transparent 20%, #0c0c0c 20%, #0c0c0c 80%, transparent 80%, transparent),
+                radial-gradient(circle, transparent 20%, #0c0c0c 20%, #0c0c0c 80%, transparent 80%, transparent),
+                linear-gradient(#181818 1px, transparent 1px),
+                linear-gradient(90deg, #181818 1px, transparent 1px);
+            background-size: 8px 8px, 8px 8px, 8px 8px, 8px 8px;
+            background-position: 0 0, 4px 4px, 0 0, 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .bike-placeholder::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(224, 92, 0, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .bike-svg {
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .bike-card:hover .bike-svg {
+            filter: drop-shadow(0 0 8px var(--color-accent));
+            transform: scale(1.05);
+        }
+
+        /* Year & Mileage Badges */
+        .bike-meta-row {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            gap: 8px;
+            z-index: 3;
+        }
+
+        .bike-badge {
+            background-color: rgba(13, 13, 13, 0.85);
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            backdrop-filter: blur(4px);
+        }
+
+        .bike-info {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .bike-brand {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            margin-bottom: 4px;
+        }
+
+        .bike-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            color: var(--color-text);
+        }
+
+        .bike-desc {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        /* Custom Specs Tag list */
+        .bike-specs-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .spec-tag {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-muted);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .bike-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .bike-price {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
+        .bike-cta {
+            background-color: transparent;
+            border: 1.5px solid var(--color-border);
+            color: var(--color-text);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .bike-card:hover .bike-cta {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+            box-shadow: 0 0 10px var(--color-accent-glow);
+        }
+
+        /* ==========================================
+       HOW IT WORKS SECTION
+       ========================================== */
+        .how-it-works {
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .steps-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .step-item {
+            position: relative;
+            flex: 1;
+            text-align: center;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .step-num-container {
+            width: 70px;
+            height: 70px;
+            background-color: var(--color-surface-card);
+            border: 2px solid var(--color-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            box-shadow: 0 0 0 8px rgba(13, 13, 13, 0.4);
+            transition: var(--transition);
+        }
+
+        .step-item:hover .step-num-container {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 8px rgba(224, 92, 0, 0.15), 0 0 20px var(--color-accent-glow);
+            transform: scale(1.05);
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--color-text);
+        }
+
+        .step-desc {
+            font-size: 0.95rem;
+            color: var(--color-muted);
+            line-height: 1.6;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .steps-container {
+                flex-direction: row;
+                gap: 20px;
+            }
+
+            /* Horizontal Connector Line */
+            .steps-container::before {
+                content: '';
+                position: absolute;
+                top: 35px;
+                left: 12%;
+                right: 12%;
+                height: 2px;
+                background: linear-gradient(90deg,
+                        rgba(42, 42, 42, 0) 0%,
+                        rgba(176, 184, 193, 0.3) 20%,
+                        rgba(176, 184, 193, 0.3) 80%,
+                        rgba(42, 42, 42, 0) 100%);
+                z-index: 1;
+            }
+        }
+
+        /* ==========================================
+       TESTIMONIALS SECTION
+       ========================================== */
+        .testimonials {
+            background-color: var(--color-bg);
+        }
+
+        .testimonials-grid {
+            grid-template-columns: 1fr;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, #161616, #1C1C1C);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(224, 92, 0, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 24px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            opacity: 0.08;
+            fill: var(--color-accent);
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--color-text);
+            margin-bottom: 30px;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px solid var(--color-border);
+            padding-top: 20px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #242424;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-border);
+            font-family: var(--font-display);
+            color: var(--color-accent);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .author-info h4 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 2px;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .author-info p {
+            font-size: 0.8rem;
+            color: var(--color-muted);
+        }
+
+        .author-info span {
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        /* ==========================================
+       CONTACT & CTA SECTION
+       ========================================== */
+        .contact {
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .contact-grid {
+            grid-template-columns: 1fr;
+            align-items: start;
+        }
+
+        @media (min-width: 992px) {
+            .contact-grid {
+                grid-template-columns: 1.2fr 0.8fr;
+                gap: 60px;
+            }
+        }
+
+        /* Lead Form */
+        .contact-form-container {
+            background-color: var(--color-surface-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--color-text);
+        }
+
+        .form-subtitle {
+            font-size: 0.9rem;
+            color: var(--color-muted);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-muted);
+            margin-bottom: 8px;
+            letter-spacing: 0.03em;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: #111;
+            border: 1.5px solid var(--color-border);
+            border-radius: 6px;
+            padding: 12px 16px;
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 8px rgba(224, 92, 0, 0.25);
+        }
+
+        select.form-control {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B0B8C1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--color-accent);
+            color: var(--color-text);
+            border: none;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--color-accent-glow);
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--color-accent-hover);
+            box-shadow: 0 6px 20px rgba(255, 110, 11, 0.5);
+        }
+
+        /* Success Alert */
+        .success-alert {
+            display: none;
+            background-color: rgba(6, 199, 85, 0.1);
+            border: 1px solid var(--color-success);
+            color: var(--color-text);
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .success-alert svg {
+            color: var(--color-success);
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        /* Contact Details Sidebar */
+        .contact-info-panel {
+            padding-top: 10px;
+        }
+
+        .info-headline {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .info-description {
+            color: var(--color-muted);
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        .direct-cta-box {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .btn-direct {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 28px;
+            border-radius: var(--border-radius);
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-text);
+            cursor: pointer;
+        }
+
+        .btn-line {
+            background-color: var(--color-line-green);
+            box-shadow: 0 4px 15px rgba(6, 199, 85, 0.3);
+        }
+
+        .btn-line:hover {
+            background-color: #05b04b;
+            box-shadow: 0 6px 20px rgba(6, 199, 85, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-call {
+            background-color: var(--color-accent);
+            box-shadow: 0 4px 15px var(--color-accent-glow);
+        }
+
+        .btn-call:hover {
+            background-color: var(--color-accent-hover);
+            box-shadow: 0 6px 20px rgba(255, 110, 11, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-direct svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .text-contacts {
+            border-top: 1px solid var(--color-border);
+            padding-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-item-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .contact-item-row .icon-wrapper {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--color-border);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-accent);
+        }
+
+        .contact-item-row .icon-wrapper svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .contact-item-row .contact-label {
+            font-size: 0.8rem;
+            color: var(--color-muted);
+            margin-bottom: 2px;
+        }
+
+        .contact-item-row .contact-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        /* ==========================================
+       FOOTER
+       ========================================== */
+        .site-footer {
+            background-color: #080808;
+            border-top: 1px solid var(--color-border);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+        }
+
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-brand h3 span {
+            color: var(--color-accent);
+        }
+
+        .footer-brand h3 svg {
+            fill: var(--color-accent);
+            width: 24px;
+            height: 24px;
+        }
+
+        .footer-brand p {
+            color: var(--color-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            max-width: 300px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-muted);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            color: var(--color-text);
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+            box-shadow: 0 0 10px var(--color-accent-glow);
+        }
+
+        .social-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .footer-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--color-accent);
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--color-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-accent);
+            padding-left: 4px;
+        }
+
+        .footer-address {
+            font-style: normal;
+            color: var(--color-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-address strong {
+            color: var(--color-text);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--color-border);
+            padding-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+            color: rgba(176, 184, 193, 0.4);
+            font-size: 0.8rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==========================================
+       HEADER / NAVIGATION
+       ========================================== -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="#home" class="brand-logo" aria-label="BlueRay Superbike Garage หน้าแรก">
+                <!-- SVG Piston/Sprocket Logo Mark -->
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+                    <path d="M12 9c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1z" fill="#0D0D0D" />
+                </svg>
+                BlueRay <span>Superbike</span> Garage
+            </a>
+
+            <nav aria-label="เมนูนำทางหลัก">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active">หน้าแรก</a></li>
+                    <li><a href="#why-us" class="nav-link">ทำไมต้องร้านเรา</a></li>
+                    <li><a href="#inventory" class="nav-link">รถในคลัง</a></li>
+                    <li><a href="#how-it-works" class="nav-link">ขั้นตอนการซื้อ</a></li>
+                    <li><a href="#testimonials" class="nav-link">รีวิวจากลูกค้า</a></li>
+                    <li><a href="#contact" class="nav-link">ติดต่อเรา</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="tel:0934682260" class="btn-nav-call">โทรเลย: 093-468-2260</a>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navMenu"
+                aria-label="เปิดเมนูนำทาง">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==========================================
+       HERO SECTION
+       ========================================== -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div class="hero-bg-mobile"></div>
+            <div class="hero-bg-desktop"></div>
+        </div>
+
+        <!-- SVG Glowing Line Divider -->
+        <div class="hero-divider-svg-container">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="hero-divider-svg">
+                <line x1="57.5" y1="0" x2="50" y2="100" stroke="#E05C00" stroke-width="0.25" class="glow-line" />
+            </svg>
+        </div>
+
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">ขี่คันที่ใช่<br><span>ในราคาที่คุ้ม</span></h1>
+                <p class="hero-subtitle">รถบิ๊กไบค์มือสองคัดพิเศษ พร้อมประวัติครบถ้วน <br>มั่นใจได้ร้อยเปอร์เซ็นต์</p>
+                <a href="#inventory" class="hero-cta">ดูรถทั้งหมด</a>
+
+                <div class="trust-badges">
+                    <div class="badge-item">
+                        <!-- Shield-check SVG Icon -->
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                            </path>
+                        </svg>
+                        ✓ เช็คประวัติทุกคัน
+                    </div>
+                    <div class="badge-item">
+                        <!-- Shield SVG Icon -->
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        ✓ รับประกัน 3 เดือน
+                    </div>
+                    <div class="badge-item">
+                        <!-- Cash/Finance SVG Icon -->
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                        ✓ ผ่อนได้
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       WHY US SECTION
+       ========================================== -->
+    <section id="why-us" class="why-us reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ทำไมต้อง <span>BlueRay Superbike Garage</span></h2>
+                <p class="section-subtitle">เพราะความเร้าใจระดับร้อยแรงม้า ต้องมาคู่กับความสบายใจสูงสุด</p>
+            </div>
+
+            <div class="grid why-us-grid">
+                <!-- Card 1 -->
+                <div class="why-card">
+                    <div class="why-icon-container">
+                        <!-- Sparkles/Verified SVG -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        </svg>
+                    </div>
+                    <h3 class="why-title">คัดมาแล้วทุกคัน</h3>
+                    <p class="why-desc">รถบิ๊กไบค์ทุกคันผ่านการตรวจเช็คสภาพอย่างละเอียดกว่า 80 จุด
+                        เช็คประวัติเล่มทะเบียน เลขไมล์แท้ 100% ไม่มีอุบัติเหตุชนหนักหรือจมน้ำ</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="why-card">
+                    <div class="why-icon-container">
+                        <!-- Tag/Price SVG -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 7h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="why-title">ราคาโปร่งใส</h3>
+                    <p class="why-desc">ตรงไปตรงมา ราคาสมเหตุสมผล ไม่มีค่าธรรมเนียมแอบแฝง พร้อมชี้แจงรายละเอียดยอดผ่อน
+                        อัตราดอกเบี้ย และค่าใช้จ่ายจัดไฟแนนซ์ให้รับรู้อย่างชัดเจน</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="why-card">
+                    <div class="why-icon-container">
+                        <!-- Wrench/Shield SVG -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="why-title">บริการหลังขาย</h3>
+                    <p class="why-desc">อุ่นใจด้วยการรับประกันคุณภาพเครื่องยนต์และระบบไฟ 3 เดือน หรือ 3,000 กิโลเมตร
+                        พร้อมทีมช่างซ่อมบำรุงและศูนย์บริการคอยให้คำแนะนำดูแล</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       FEATURED INVENTORY SECTION
+       ========================================== -->
+    <section id="inventory" class="inventory reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">รถบิ๊กไบค์ <span>คัดเกรดแนะนำ</span></h2>
+                <p class="section-subtitle">สัมผัสความเร้าใจในราคาสุดพิเศษ เอกสารครบทุกเล่ม พร้อมขี่ได้ทันที</p>
+            </div>
+
+            <div class="grid inventory-grid">
+                <!-- Bike Card 1 -->
+                <div class="bike-card">
+                    <div class="bike-img-container">
+                        <img src="assets/harley.png" alt="Harley-Davidson Sportster Iron 883 ปี 2021" class="bike-img"
+                            loading="lazy">
+                        <div class="bike-meta-row">
+                            <span class="bike-badge">ปี 2021</span>
+                            <span class="bike-badge">ไมล์ 5,500 กม.</span>
+                        </div>
+                    </div>
+                    <div class="bike-info">
+                        <span class="bike-brand">Harley-Davidson</span>
+                        <h3 class="bike-name">Sportster Iron 883</h3>
+                        <p class="bike-desc">ท่อแต่ง Vance & Hines เสียงคำรามหนักแน่น สภาพนางฟ้า กุญแจ Keyless ครบสองดอก
+                            อะไหล่เดิมครบถ้วน ประวัติเช็คศูนย์ได้เลย</p>
+                        <div class="bike-specs-tags">
+                            <span class="spec-tag">ท่อแต่ง V&H</span>
+                            <span class="spec-tag">กุญแจครบ</span>
+                            <span class="spec-tag">มือเดียว</span>
+                        </div>
+                        <div class="bike-price-row">
+                            <span class="bike-price">฿449,000</span>
+                            <button class="bike-cta"
+                                onclick="selectBike('Harley-Davidson Sportster Iron 883')">สนใจคันนี้</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 2 -->
+                <div class="bike-card">
+                    <div class="bike-img-container">
+                        <img src="assets/ducati.png" alt="Ducati Monster 937 ปี 2022" class="bike-img" loading="lazy">
+                        <div class="bike-meta-row">
+                            <span class="bike-badge">ปี 2022</span>
+                            <span class="bike-badge">ไมล์ 3,200 กม.</span>
+                        </div>
+                    </div>
+                    <div class="bike-info">
+                        <span class="bike-brand">Ducati</span>
+                        <h3 class="bike-name">Monster 937</h3>
+                        <p class="bike-desc">สตรีทไฟเตอร์สายพันธุ์ดุ สีแดงออริจินัลป้ายแดง แต่งครบ ท้ายสั้น
+                            ปลอกแฮนด์แต่ง รถมือเดียวเช็คศูนย์ Udon Thani ตลอดประวัติไร้ริ้วรอย</p>
+                        <div class="bike-specs-tags">
+                            <span class="spec-tag">ท้ายสั้น</span>
+                            <span class="spec-tag">กันล้มครบ</span>
+                            <span class="spec-tag">สภาพป้ายแดง</span>
+                        </div>
+                        <div class="bike-price-row">
+                            <span class="bike-price">฿399,000</span>
+                            <button class="bike-cta" onclick="selectBike('Ducati Monster 937')">สนใจคันนี้</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 3 (Premium SVG Silhouette Placeholder) -->
+                <div class="bike-card">
+                    <div class="bike-img-container">
+                        <img src="assets/bmw.png" alt="BMW R nineT Classic ปี 2020" class="bike-img" loading="lazy">
+                        <div class="bike-meta-row">
+                            <span class="bike-badge">ปี 2020</span>
+                            <span class="bike-badge">ไมล์ 8,000 กม.</span>
+                        </div>
+                    </div>
+                    <div class="bike-info">
+                        <span class="bike-brand">BMW</span>
+                        <h3 class="bike-name">R nineT Classic</h3>
+                        <p class="bike-desc">ตำนานโมเดิร์นคลาสสิก เครื่องยนต์ Boxer 1,170 cc ท่อ Akrapovic คาร์บอน
+                            แฮนด์แต่งปรับระดับ ประวัติสวยกริ๊บ ไร้ล้มแปะ 100%</p>
+                        <div class="bike-specs-tags">
+                            <span class="spec-tag">Akrapovic</span>
+                            <span class="spec-tag">Boxer Engine</span>
+                            <span class="spec-tag">ประวัติเช็คศูนย์</span>
+                        </div>
+                        <div class="bike-price-row">
+                            <span class="bike-price">฿519,000</span>
+                            <button class="bike-cta" onclick="selectBike('BMW R nineT Classic')">สนใจคันนี้</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Card 4 (Premium SVG Silhouette Placeholder) -->
+                <div class="bike-card">
+                    <div class="bike-img-container">
+                        <div class="bike-placeholder">
+                            <img src="assets/kawasaki.png" alt="kawasaki z900 SE ปี 2023" class="bike-img"
+                                loading="lazy">
+                        </div>
+                        <div class="bike-meta-row">
+                            <span class="bike-badge">ปี 2023</span>
+                            <span class="bike-badge">ไมล์ 4,500 กม.</span>
+                        </div>
+                    </div>
+                    <div class="bike-info">
+                        <span class="bike-brand">Kawasaki</span>
+                        <h3 class="bike-name">Z900 SE</h3>
+                        <p class="bike-desc">เน็กเก็ตสี่สูบแถวเรียงเสียงหวานดุดัน ตัว Special Edition โช้คหลัง Ohlins
+                            ท่อไอเสีย SC Project ยางสปอร์ตใหม่เอี่ยม พร้อมรับประกัน</p>
+                        <div class="bike-specs-tags">
+                            <span class="spec-tag">Ohlins</span>
+                            <span class="spec-tag">SC Project</span>
+                            <span class="spec-tag">สี่สูบเรียง</span>
+                        </div>
+                        <div class="bike-price-row">
+                            <span class="bike-price">฿279,000</span>
+                            <button class="bike-cta" onclick="selectBike('Kawasaki Z900 SE')">สนใจคันนี้</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       HOW IT WORKS SECTION
+       ========================================== -->
+    <section id="how-it-works" class="how-it-works reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ขั้นตอน <span>การเป็นเจ้าของ</span></h2>
+                <p class="section-subtitle">บริการที่รวดเร็ว ตรงไปตรงมา และมีทีมงานคอยอำนวยความสะดวกในทุกขั้นตอน</p>
+            </div>
+
+            <div class="steps-container">
+                <!-- Step 1 -->
+                <div class="step-item">
+                    <div class="step-num-container">1</div>
+                    <h3 class="step-title">➊ เลือกรถที่ใช่</h3>
+                    <p class="step-desc">ดูรถบิ๊กไบค์คัดพิเศษจากคลังออนไลน์ของเรา หรือแชทไลน์ขอคำแนะนำ
+                        ขอดูวิดีโอคอลสภาพรถจริงรอบคันได้ทันที</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-item">
+                    <div class="step-num-container">2</div>
+                    <h3 class="step-title">➋ นัดตรวจสภาพ</h3>
+                    <p class="step-desc">เข้ามาชมและทดลองขี่รถคันจริงได้ที่ร้าน
+                        หรือใช้บริการทีมงานจัดส่งรถสไลด์นำรถไปส่งให้คุณทดสอบถึงหน้าบ้าน</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-item">
+                    <div class="step-num-container">3</div>
+                    <h3 class="step-title">➌ โอนกรรมสิทธิ์</h3>
+                    <p class="step-desc">ทำเรื่องเอกสารโอนกรรมสิทธิ์ได้รวดเร็วทันใจ ทั้งระบบเงินสดและไฟแนนซ์
+                        มีผู้ดูแลให้จนเสร็จสิ้น ขี่กลับบ้านแบบถูกกฎหมาย</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       TESTIMONIALS SECTION
+       ========================================== -->
+    <section id="testimonials" class="testimonials reveal">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">เสียงยืนยัน <span>จากลูกค้าตัวจริง</span></h2>
+                <p class="section-subtitle">เรามุ่งมั่นสร้างความมั่นใจและการันตีด้วยความพึงพอใจของลูกค้าทั่วประเทศ</p>
+            </div>
+
+            <div class="grid testimonials-grid">
+                <!-- Review 1 -->
+                <div class="testimonial-card">
+                    <!-- Quote Icon SVG -->
+                    <svg class="quote-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+                    <p class="testimonial-text">"ตามหา R nineT สภาพดีมานานหลายเดือน มาเจอที่ BlueRay Superbike Garage
+                        รถสวยตรงปกยิ่งกว่าในรูป ประวัติใสเช็คศูนย์ได้จริง แถมมีช่างอธิบายระบบและข้อมูลดูแลละเอียดมาก
+                        โอนกรรมสิทธิ์ถึงที่ ประทับใจมากครับ"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">ว</div>
+                        <div class="author-info">
+                            <h4>คุณวีรยุทธ</h4>
+                            <p>จ.อุบลราชธานี — ซื้อ <span>BMW R nineT Classic</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="testimonial-card">
+                    <!-- Quote Icon SVG -->
+                    <svg class="quote-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+                    <p class="testimonial-text">"ตอนแรกแอบกังวลใจเรื่องการซื้อบิ๊กไบค์มือสองเพราะกลัวเจอรถย้อมแมว
+                        แต่ที่นี่ตรวจสอบละเอียดและมีเอกสารครบจริง แถมมีประกันหลังการขาย 3 เดือน
+                        ขี่ขับข้ามจังหวัดสบายใจหายห่วง บริการดีเยี่ยมครับ"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">ธ</div>
+                        <div class="author-info">
+                            <h4>คุณธีรเดช</h4>
+                            <p>จ.ขอนแก่น — ซื้อ <span>Harley-Davidson Sportster 883</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       CONTACT & CTA SECTION
+       ========================================== -->
+    <section id="contact" class="contact reveal">
+        <div class="container">
+            <div class="grid contact-grid">
+                <!-- Contact Details Left -->
+                <div class="contact-info-panel">
+                    <h2 class="info-headline">พร้อมเป็นเจ้าของบิ๊กไบค์<br>ที่คุณรักแล้วหรือยัง</h2>
+                    <p class="info-description">ทักหาเราตอนนี้ เพื่อรับสิทธิ์โปรโมชั่นดอกเบี้ยพิเศษ ข้อมูลประวัติรถ
+                        หรือจัดไฟแนนซ์ได้รวดเร็วทันใจ ทีมงาน BlueRay Superbike Garage ยินดีต้อนรับทุกท่าน</p>
+
+                    <div class="direct-cta-box">
+                        <!-- LINE CTA Button -->
+                        <a href="https://line.me/R/ti/p/@BlueRaySuperbikeGarage" target="_blank"
+                            rel="noopener noreferrer" class="btn-direct btn-line">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24 10.3c0-4.7-4.9-8.5-11-8.5S2 5.6 2 10.3c0 4.2 3.9 7.7 9.2 8.3.4.1.9.3 1 .7.1.3.1.7 0 1-.1.4-.4 1.7-.5 2.4l-.1.4c-.1.4.1.6.4.5.3-.1 1.9-1.2 2.7-1.8l.3-.3c.4-.3.9-.4 1.4-.4 4.8-.4 7.6-3.8 7.6-7.8zm-14.8.8h-1.5c-.3 0-.5-.2-.5-.5v-3.2c0-.3.2-.5.5-.5h.3c.3 0 .5.2.5.5v2.7h1.2c.3 0 .5.2.5.5v.1c-.1.2-.3.4-.5.4zm3.1-.5c0 .3-.2.5-.5.5h-.3c-.3 0-.5-.2-.5-.5v-3.2c0-.3.2-.5.5-.5h.3c.3 0 .5.2.5.5v3.2zm4.7 0c0 .3-.2.5-.5.5h-.3c-.3 0-.5-.2-.5-.5v-2.2l-1.1 2.5c-.1.2-.3.3-.5.3h-.1c-.2 0-.4-.1-.5-.3l-1.1-2.5v2.2c0 .3-.2.5-.5.5h-.3c-.3 0-.5-.2-.5-.5v-3.2c0-.3.2-.5.5-.5h.4c.2 0 .4.1.5.3l1.2 2.6 1.2-2.6c.1-.2.3-.3.5-.3h.4c.3 0 .5.2.5.5v3.2zm3.4-1.2h-1.2v.7h1.2c.3 0 .5.2.5.5v.1c0 .3-.2.5-.5.5h-1.7c-.3 0-.5-.2-.5-.5v-3.2c0-.3.2-.5.5-.5h1.7c.3 0 .5.2.5.5v.1c0 .3-.2.5-.5.5h-1.2v.6h1.2c.3 0 .5.2.5.5v.1c0 .2-.2.4-.5.4z" />
+                            </svg>
+                            แชท LINE
+                        </a>
+
+                        <!-- Call CTA Button -->
+                        <a href="tel:0934682260" class="btn-direct btn-call">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"
+                                    fill="currentColor" />
+                            </svg>
+                            โทรเลย: 093-468-2260
+                        </a>
+                    </div>
+
+                    <div class="text-contacts">
+                        <!-- Line ID info -->
+                        <div class="contact-item-row">
+                            <div class="icon-wrapper">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11a13.917 13.917 0 00-2.3-7.57l-.054-.09M12 11c0-3.517 1.009-6.799 2.753-9.571m3.44 2.04l-.054.09A13.916 13.916 0 0015 11c0 3.517 1.009 6.799 2.753 9.571m-3.44-2.04l.054-.09a13.916 13.916 0 002.3-7.57l-.054-.09M3 12h18">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="contact-label">LINE ID ทางการ</div>
+                                <div class="contact-value">@BlueRay Superbike Garage</div>
+                            </div>
+                        </div>
+
+                        <!-- Hotline info -->
+                        <div class="contact-item-row">
+                            <div class="icon-wrapper">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305 1.305a2.11 2.11 0 00-.08 2.68 10.303 10.303 0 005.1 5.1 2.11 2.11 0 002.68-.08l1.305-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="contact-label">สายด่วนพิเศษ</div>
+                                <div class="contact-value">093-468-2260 / 092-696-4660</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lead Form Right -->
+                <div class="contact-form-container">
+                    <h3 class="form-title">ส่งข้อมูลให้เจ้าหน้าที่ติดต่อกลับ</h3>
+                    <p class="form-subtitle">เราจะตรวจสอบโปรโมชั่นที่ดีที่สุดและติดต่อกลับภายใน 15 นาที</p>
+
+                    <div class="success-alert" id="successAlert" role="alert">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        ส่งข้อมูลติดต่อสำเร็จ! เจ้าหน้าที่จะติดต่อกลับหาคุณโดยเร็วที่สุด
+                    </div>
+
+                    <form id="leadForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">ชื่อ-นามสกุล *</label>
+                            <input type="text" id="name" class="form-control" placeholder="ตัวอย่าง: คุณเกริกพล สมบูรณ์"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="form-label">เบอร์โทรศัพท์ติดต่อ *</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="ตัวอย่าง: 0812345678"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bikeSelect" class="form-label">บิ๊กไบค์คันที่สนใจ *</label>
+                            <select id="bikeSelect" class="form-control" required>
+                                <option value="" disabled selected>กรุณาเลือกบิ๊กไบค์ที่ต้องการ</option>
+                                <option value="Harley-Davidson Sportster Iron 883">Harley-Davidson Sportster Iron 883
+                                    (฿449,000)</option>
+                                <option value="Ducati Monster 937">Ducati Monster 937 (฿399,000)</option>
+                                <option value="BMW R nineT Classic">BMW R nineT Classic (฿519,000)</option>
+                                <option value="Kawasaki Z900 SE">Kawasaki Z900 SE (฿279,000)</option>
+                                <option value="ยังไม่ระบุคันที่สนใจ / รุ่นอื่นๆ">รุ่นอื่นๆ / ปรึกษาทีมงานเพิ่มเติม
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">ข้อความเพิ่มเติม (ถ้ามี)</label>
+                            <textarea id="message" rows="3" class="form-control"
+                                placeholder="ระบุช่วงเวลาที่สะดวกให้ติดต่อกลับ หรือข้อมูลปรึกษาไฟแนนซ์ได้ที่นี่"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">ส่งข้อมูลติดต่อกลับ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       FOOTER
+       ========================================== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="grid footer-grid">
+                <!-- Brand Info -->
+                <div class="footer-brand">
+                    <h3>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+                        </svg>
+                        BlueRay <span>Superbike</span> Garage
+                    </h3>
+                    <p>SERIOUS RIDERS. SERIOUS MACHINES.<br>โชว์รูมบิ๊กไบค์มือสองระดับพรีเมียม ประวัติแท้
+                        ตรวจสภาพครบถ้วน</p>
+                    <div class="footer-socials">
+                        <!-- Facebook -->
+                        <a href="https://facebook.com" class="social-icon" aria-label="Facebook Page">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
+                            </svg>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://instagram.com" class="social-icon" aria-label="Instagram Profile">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                            </svg>
+                        </a>
+                        <!-- Youtube -->
+                        <a href="https://youtube.com" class="social-icon" aria-label="YouTube Channel">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sitemap Quicklinks -->
+                <div class="footer-links-col">
+                    <h4 class="footer-title">ลิงก์แนะนำ</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">หน้าแรก</a></li>
+                        <li><a href="#why-us">ทำไมต้องร้านเรา</a></li>
+                        <li><a href="#inventory">รถบิ๊กไบค์ทั้งหมด</a></li>
+                        <li><a href="#how-it-works">ขั้นตอนการจัดซื้อ</a></li>
+                        <li><a href="#testimonials">รีวิวจากลูกค้า</a></li>
+                    </ul>
+                </div>
+
+                <!-- Address Info -->
+                <div class="footer-links-col">
+                    <h4 class="footer-title">สถานที่ตั้งโชว์รูม</h4>
+                    <address class="footer-address">
+                        <strong>BlueRay Superbike Garage</strong>
+                        123 ถนนชยางกูร ตำบลในเมือง<br>
+                        อำเภอเมืองอุบลราชธานี จังหวัดอุบลราชธานี 34000<br>
+                        <br>
+                        เปิดบริการทุกวัน: 09:00 - 18:30 น.
+                    </address>
+                </div>
+            </div>
+
+            <!-- Copyright bottom -->
+            <div class="footer-bottom">
+                <p style="text-align: center;">© 2026 BlueRay Superbike Garage. สงวนลิขสิทธิ์ตามกฎหมาย.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+       JAVASCRIPT
+       ========================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. STICKY HEADER ON SCROLL
+            const header = document.querySelector('.site-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // 2. MOBILE MENU TOGGLE
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            menuToggle.addEventListener('click', () => {
+                const isOpen = menuToggle.classList.toggle('open');
+                navMenu.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', isOpen);
+            });
+
+            // Close mobile menu when a nav link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('open');
+                    navMenu.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', false);
+                });
+            });
+
+            // 3. SCROLL REVEAL (IntersectionObserver)
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Once revealed, we don't need to observe it anymore
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+
+            // 4. ACTIVE NAVIGATION LINK ON SCROLL
+            const sections = document.querySelectorAll('section');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    // Offset to trigger slightly before the section is exactly at the top
+                    if (scrollY >= (sectionTop - 120)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 5. LEAD FORM SUBMIT WITH DYNAMIC SIMULATED RESPONSE
+            const leadForm = document.getElementById('leadForm');
+            const successAlert = document.getElementById('successAlert');
+
+            leadForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Show success notification
+                successAlert.style.display = 'flex';
+                successAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                // Reset form input values
+                leadForm.reset();
+
+                // Hide notification after 6 seconds
+                setTimeout(() => {
+                    successAlert.style.display = 'none';
+                }, 6000);
+            });
+        });
+
+        // 6. HELPER FUNCTION TO CHOOSE A BIKE FROM CARD
+        function selectBike(bikeName) {
+            const bikeSelect = document.getElementById('bikeSelect');
+            const contactSection = document.getElementById('contact');
+
+            if (bikeSelect) {
+                bikeSelect.value = bikeName;
+            }
+
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+
+</html>
